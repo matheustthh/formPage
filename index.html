@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Simples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        input, button {
+            padding: 5px;
+            font-size: 16px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Cadastro Simples</h1>
+    <form id="cadastroForm">
+        <input type="text" id="nome" placeholder="Nome" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <button type="submit">Cadastrar</button>
+    </form>
+    <h2>Cadastros Realizados</h2>
+    <table id="tabelaCadastros">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        const form = document.getElementById('cadastroForm');
+        const tabela = document.getElementById('tabelaCadastros').getElementsByTagName('tbody')[0];
+        const cadastros = [];
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            
+            cadastros.push({nome, email});
+            atualizarTabela();
+            form.reset();
+        });
+
+        function atualizarTabela() {
+            tabela.innerHTML = '';
+            for (const cadastro of cadastros) {
+                const row = tabela.insertRow();
+                const cellNome = row.insertCell(0);
+                const cellEmail = row.insertCell(1);
+                cellNome.textContent = cadastro.nome;
+                cellEmail.textContent = cadastro.email;
+            }
+        }
+    </script>
+</body>
+</html>
